@@ -4,10 +4,6 @@
 #include"netlist.h"
 #include"hill.h"
 #include<iostream>
-#include<stdlib.h>
-#include<fstream>
-#include<chrono>
-#include<random>
 #define it 1000
 
 using namespace std;
@@ -15,10 +11,11 @@ using namespace std;
 
 int main(){
     //cout << hillClimbing() << endl;
-     //Netlist a;
+     Netlist a;
     // a.createNtl(5.555);
     // a.runNtl();
-    HillClimbing test;
-    cout << test.algoritmo() << endl; 
+    //HillClimbing test;
+    //cout << test.algoritmo() << endl; 
+    cout << a.readlog()<< endl;
     return 0;
 }

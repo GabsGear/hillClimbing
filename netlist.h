@@ -3,6 +3,7 @@
 #define NETLIST_H_
 #include <string>
 #include<fstream>
+#include<string>
 #include <iostream>
 using namespace std;
 
@@ -10,8 +11,10 @@ class Netlist {
 public:
     void createNtl(double newn);
     void runNtl();
+    double readlog();
 protected:
     ofstream outFile;
+    ifstream inFile;
     FILE *ltspicepipe;
 };
 
@@ -43,5 +46,23 @@ void Netlist::runNtl(){
         fflush(ltspicepipe); //limpar o buffer 
     }
 };
+
+double Netlist::readlog(){
+    double v;
+    string log = "generated_netlist.log";
+    inFile.open(log);
+    if (inFile.is_open()){
+        //while(inFile){
+            string line;
+            getline(inFile, line, '=');
+            inFile >> v;
+       // }
+        inFile.close();
+    }
+    else
+        cerr << "Nao foi possivel abrir o log" << endl;
+    
+    return v;
+}
 
 #endif

@@ -29,6 +29,7 @@ double HillClimbing::cost(double x){
 };
 
 double HillClimbing::algoritmo(){
+    //
     double x = getRandom();
     double atualCost = cost(x);
     for(int i = 0; i < it; i++){
