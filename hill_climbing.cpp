@@ -12,7 +12,7 @@
 using namespace std;
 
 double getRandom(){
-    //gerador de numeros aleatorios baseados no tempo
+    //gerador de numeros aleatorios baseados no tempo (normal desvio padrao 1)
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     default_random_engine generator (seed);
     normal_distribution<double> distribution (0.0,1.0);
@@ -39,8 +39,8 @@ double hillClimbing(){
 
 int main(){
     //cout << hillClimbing() << endl;
-
-    Netlist a;
-    a.createNtl(5.555);
+     Netlist a;
+    // a.createNtl(5.555);
+    a.runNtl();
     return 0;
 }

@@ -8,9 +8,11 @@ using namespace std;
 
 class Netlist {
 public:
-	void createNtl(double newn);
+    void createNtl(double newn);
+    void runNtl();
 protected:
     ofstream outFile;
+    FILE *ltspicepipe;
 };
 
 void Netlist::createNtl(double newn) {
@@ -29,6 +31,17 @@ void Netlist::createNtl(double newn) {
     }
     else
     cerr << "Erro ao criar netlist" << endl;
+};
+
+void Netlist::runNtl(){
+    ltspicepipe = popen("env WINEPREFIX=""/home/gabs/.wine"" wine C:\\Program/ Files\\LTC\\LTspiceXVII\\XVIIx64.exe ", "w");
+    if (!ltspicepipe) {
+		cerr << ("Ltspice não encontrado !"); //gera erro 
+    }
+    else{
+        fprintf(ltspicepipe, "generated_netlist.cir"); //printar no arquivo
+        fflush(ltspicepipe); //limpar o buffer 
+    }
 };
 
 #endif
