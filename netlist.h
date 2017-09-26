@@ -65,4 +65,5 @@ double Netlist::readlog(){
     return v;
 }
 
+
 #endif

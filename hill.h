@@ -2,6 +2,7 @@
 #define HILLCLIMBING_H_
 #include <string>
 #include"netlist.h"
+#include"gnuplot.h"
 #include<fstream>
 #include <iostream>
 #include<chrono>
@@ -26,6 +27,7 @@ double HillClimbing::getRandom(){
 };
 
 double HillClimbing::cost(double x){
+    //função custo
     Netlist net;
     net.createNtl(x);
    //net.runNtl();
@@ -35,11 +37,16 @@ double HillClimbing::cost(double x){
 };
 
 double HillClimbing::algoritmo(){
-    //hill climbing
-    double x = getRandom();
+     int lb = 100;
+     int ub = 20000;
+     int x = 1000;
+     //x = lb + (ub-lb)*gerRandom;
+    //double x = getRandom();
     double atualCost = cost(x);
     for(int i = 0; i < it; i++){
-        double tweak = x + getRandom();
+        double tweak = x*(1 + 0.1 * getRandom());
+        while(tweak < lb || tweak > ub)
+             tweak = x*(1 + 0.1 * getRandom());
         double newCost = cost(tweak);
         if(newCost < atualCost){
             atualCost = newCost;

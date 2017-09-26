@@ -14,8 +14,8 @@ int main(){
     // Netlist a;
     // a.createNtl(5.555);
     // a.runNtl();
-    //HillClimbing test;
-    //cout << test.cost(2.421) << endl;
+    // HillClimbing test;
+   // cout << test.cost(2.421) << endl;
     //cout << test.algoritmo() << endl; 
     //cout << a.readlog()<< endl;
 
