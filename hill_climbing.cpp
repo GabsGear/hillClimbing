@@ -4,8 +4,9 @@
 
 #include<iostream>
 #include<stdlib.h>
-#include <chrono>
+#include<chrono>
 #include<random>
+#include"netlist.h"
 #define it 1000
 
 using namespace std;
@@ -37,6 +38,8 @@ double hillClimbing(){
 }
 
 int main(){
-    cout << hillClimbing() << endl;
+    //cout << hillClimbing() << endl;
+    Netlist teste;
+    teste(5.555);
 
 }
