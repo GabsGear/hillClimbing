@@ -1,12 +1,12 @@
 //gabriel ghellere Hill climbing + aleatorios dist norm
 // para compilar use  g++ hill_climbing.cpp -std=c++11 -o hc
 
-
+#include"netlist.h"
 #include<iostream>
 #include<stdlib.h>
+#include<fstream>
 #include<chrono>
 #include<random>
-#include"netlist.h"
 #define it 1000
 
 using namespace std;
@@ -39,7 +39,8 @@ double hillClimbing(){
 
 int main(){
     //cout << hillClimbing() << endl;
-    Netlist teste;
-    teste(5.555);
 
+    Netlist a;
+    a.createNtl(5.555);
+    return 0;
 }
