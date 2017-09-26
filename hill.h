@@ -1,6 +1,7 @@
 #ifndef HILLCLIMBING_H_
 #define HILLCLIMBING_H_
 #include <string>
+#include"netlist.h"
 #include<fstream>
 #include <iostream>
 #include<chrono>
@@ -25,11 +26,16 @@ double HillClimbing::getRandom(){
 };
 
 double HillClimbing::cost(double x){
-    return x*x; //funcao x² 
+    Netlist net;
+    net.createNtl(x);
+   //net.runNtl();
+    double meas = net.readlog();
+    double objective = 5;
+   return (meas-objective)*(meas-objective);
 };
 
 double HillClimbing::algoritmo(){
-    //
+    //hill climbing
     double x = getRandom();
     double atualCost = cost(x);
     for(int i = 0; i < it; i++){
