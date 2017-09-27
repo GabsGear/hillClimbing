@@ -30,7 +30,7 @@ double HillClimbing::cost(double x){
     //função custo
     Netlist net;
     net.createNtl(x);
-   //net.runNtl();
+    net.runNtl();
     double meas = net.readlog();
     double objective = 5;
    return (meas-objective)*(meas-objective);

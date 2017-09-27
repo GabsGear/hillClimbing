@@ -15,7 +15,7 @@ public:
 protected:
     ofstream outFile;
     ifstream inFile;
-    FILE *ltspicepipe;
+    FILE *ngspicepipe;
 };
 
 void Netlist::createNtl(double newn) {
@@ -37,16 +37,16 @@ void Netlist::createNtl(double newn) {
 };
 
 void Netlist::runNtl(){
-    ltspicepipe = popen("env WINEPREFIX=""/home/gabs/.wine"" wine C:\\Program/ Files\\LTC\\LTspiceXVII\\XVIIx64.exe ", "w");
-    if (!ltspicepipe) {
-		cerr << ("Ltspice não encontrado !"); //gera erro 
+    ngspicepipe = popen("ngspice", "w");
+    if (!ngspicepipe) {
+		cerr << ("NGspice não encontrado !"); //gera erro 
     }
     else{
-        fprintf(ltspicepipe, "generated_netlist.cir"); //printar no arquivo
-        fflush(ltspicepipe); //limpar o buffer 
+        fprintf(ngspicepipe, "generated_netlist.cir"); //printar no arquivo
+        fflush(ngspicepipe); //limpar o buffer 
     }
 };
-
+ 
 double Netlist::readlog(){
     double v;
     string log = "generated_netlist.log";

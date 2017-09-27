@@ -1,6 +1,6 @@
 * Circuit Name
 V1 N001 0 10
-R1 N001 out 973.671
+R1 N001 out 12.1221
 R2 out 0 5k
 .tran 1ms
 .measure TRAN vout FIND V(out) AT=1ms 
