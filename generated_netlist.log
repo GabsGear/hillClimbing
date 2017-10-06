@@ -2,11 +2,11 @@ Circuit: * Circuit Name
 
 Direct Newton iteration for .op point succeeded.
 
-vout: v(out)=7.5646 at 0.001
+vout: v(out)=5.17706 at 0.001
 
 
-Date: Wed Sep 20 11:54:47 2017
-Total elapsed time: 0.048 seconds.
+Date: Fri Oct 06 11:32:51 2017
+Total elapsed time: 0.006 seconds.
 
 tnom = 27
 temp = 27
@@ -19,5 +19,7 @@ rejected = 0
 matrix size = 3
 fillins = 0
 solver = Normal
-Matrix Compiler1:       3 opcodes  0.0/[0.0]/0.0
-Matrix Compiler2:      15 opcodes  0.1/[0.1]/0.1
+Matrix Compiler1: 50 bytes object code size  0.2/0.2/[0.2]
+Matrix Compiler2: 175 bytes object code size  0.2/0.2/[0.2]
+
+

@@ -2,7 +2,7 @@
 #define HILLCLIMBING_H_
 #include <string>
 #include"netlist.h"
-#include"gnuplot.h"
+//#include"gnuplot.h"
 #include<fstream>
 #include <iostream>
 #include<chrono>
@@ -51,7 +51,8 @@ double HillClimbing::algoritmo(){
         if(newCost < atualCost){
             atualCost = newCost;
             x = tweak;
-        }
+        } 
+        cout << "it n: " << i << "custo novo: " << atualCost << "valor x modificado :" << x << endl; 
     }
     return x;
 };

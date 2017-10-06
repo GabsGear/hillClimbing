@@ -4,6 +4,7 @@
 #include <string>
 #include<fstream>
 #include<string>
+#include<stdlib.h>
 #include <iostream>
 using namespace std;
 
@@ -15,7 +16,6 @@ public:
 protected:
     ofstream outFile;
     ifstream inFile;
-    FILE *ngspicepipe;
 };
 
 void Netlist::createNtl(double newn) {
@@ -26,25 +26,20 @@ void Netlist::createNtl(double newn) {
         outFile << "* Circuit Name" << endl;
         outFile << "V1 N001 0 10" << endl;
         outFile << "R1 N001 out " << newn << endl;
-        outFile << "R2 out 0 5k" << endl;
+        outFile << "R2 out 0 10k" << endl;
         outFile << ".tran 1ms" << endl;
-        outFile << ".measure TRAN vout FIND V(out) AT=1ms " << endl;
+        outFile << ".measure TRAN vout FIND V(out) AT=1ms" << endl;
         outFile << ".end" << endl;
         outFile.close();
+       // cout << newn << endl;
     }
     else
     cerr << "Erro ao criar netlist" << endl;
 };
 
 void Netlist::runNtl(){
-    ngspicepipe = popen("ngspice", "w");
-    if (!ngspicepipe) {
-		cerr << ("NGspice não encontrado !"); //gera erro 
-    }
-    else{
-        fprintf(ngspicepipe, "generated_netlist.cir"); //printar no arquivo
-        fflush(ngspicepipe); //limpar o buffer 
-    }
+       // system("./ltspice -b  generated_netlist.cir");
+       system("ltspice_linux -b generated_netlist.cir");
 };
  
 double Netlist::readlog(){
