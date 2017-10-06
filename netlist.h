@@ -1,4 +1,10 @@
-//
+/*
+    Gabriel Ghellere    
+    netlist class: FIle manipulation, log generator and execute ltspice
+    createNtl=> create a netlist for analysis with variable values
+    runNtl=> run netlist into Ltspice
+    readelog => read for the ltspice log and search the objectives values 
+*/
 #ifndef NETLIST_H_
 #define NETLIST_H_
 #include <string>
@@ -38,7 +44,6 @@ void Netlist::createNtl(double newn) {
 };
 
 void Netlist::runNtl(){
-       // system("./ltspice -b  generated_netlist.cir");
        system("ltspice_linux -b generated_netlist.cir");
 };
  

@@ -1,5 +1,9 @@
-// gnuplot.cpp : Defines the entry point for the console application.
-//
+/*
+	Gabriel GHellere 
+	GNUPLOT class;
+		 send a command to gnuplot
+*/
+
 #ifndef GNUPLOT_H_
 #define GNUPLOT_H_
 #include <string>
@@ -10,28 +14,28 @@ class Gnuplot {
 public:
 	Gnuplot();
 	~Gnuplot();
-	void operator ()(const string & command); // manda o comando objeto + parametro
+	void operator ()(const string & command); // send the command
 
 protected:
 	FILE *gnuplotpipe;
 };
 
-Gnuplot::Gnuplot() { //popen da o controle a um rocesso de entrada ou saida de streabs
+Gnuplot::Gnuplot() { //open gnuplot 
 	gnuplotpipe = popen("gnuplot", "w");
 
 	if (!gnuplotpipe) {
-		cerr << ("Gnuplot not found !"); //gera erro 
+		cerr << ("Gnuplot not found !"); 
 	}
 }
 
-Gnuplot::~Gnuplot() {
+Gnuplot::~Gnuplot() {//Close gnuplot
 	fprintf(gnuplotpipe, "exit\n");
 	pclose(gnuplotpipe);
 }
 
 void Gnuplot::operator()(const string & command) {
-	fprintf(gnuplotpipe, "%s\n", command.c_str()); //printar no arquivo
-	fflush(gnuplotpipe); //limpar o buffer 
+	fprintf(gnuplotpipe, "%s\n", command.c_str()); //sedn command
+	fflush(gnuplotpipe); //buffer clear 
 };
 
 #endif

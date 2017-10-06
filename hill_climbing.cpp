@@ -11,16 +11,7 @@ using namespace std;
 
 
 int main(){
-     //Netlist a;
-     //a.createNtl(1.2323442);
-     
-     //a.runNtl();
       HillClimbing test;
-     // cout << test.cost(2.421) << endl;
-     cout << test.algoritmo() << endl; 
-     //cout << a.readlog()<< endl;
-     
-     //getchar();
-
-    return 0;
+     cout << "Valor otimo encontrado = " << test.algoritmo() << endl; 
+     return 0;
 }
