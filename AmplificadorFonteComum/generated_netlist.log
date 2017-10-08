@@ -2,24 +2,24 @@ Circuit: * Circuit Name
 
 Direct Newton iteration for .op point succeeded.
 
-vout: v(out)=4.78087 at 0.001
+gain: v(vout)/v(vin)=2.64979 at 1
 
 
-Date: Sat Oct 07 15:53:25 2017
-Total elapsed time: 0.010 seconds.
+Date: Sun Oct 08 19:18:01 2017
+Total elapsed time: 0.020 seconds.
 
 tnom = 27
 temp = 27
 method = modified trap
-totiter = 2085
-traniter = 2082
-tranpoints = 1042
-accept = 1042
+totiter = 2095
+traniter = 2089
+tranpoints = 1045
+accept = 1045
 rejected = 0
-matrix size = 3
+matrix size = 7
 fillins = 0
 solver = Normal
-Matrix Compiler1: 50 bytes object code size  0.3/0.3/[0.2]
-Matrix Compiler2: 175 bytes object code size  0.3/0.3/[0.3]
+Matrix Compiler1: 160 bytes object code size  0.2/0.2/[0.2]
+Matrix Compiler2: off  [0.2]/0.2/0.2
 
 
