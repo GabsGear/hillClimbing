@@ -16,7 +16,7 @@ using namespace std;
 
 class Netlist {
 public:
-    void createNtl();//double newn);
+    void createNtl(double rd, double vgs, double w, double l);//double newn);
     void runNtl();
     double readlog();
 protected:
@@ -24,18 +24,18 @@ protected:
     ifstream inFile;
 };
 
-void Netlist::createNtl(){//*double newn*/) {
+void Netlist::createNtl(double rd, double vgs, double w, double l){//*double newn*/) {
     string ntl = "generated_netlist.cir";
     outFile.open(ntl);
 
     if(outFile.is_open()){
         string gain;
         outFile << "* Circuit Name" << endl;
-        outFile << "M1 Vout VIN 0 0 N_1u l=1.5u w=3u" << endl;
-        outFile << "Rd VDD Vout 25000 " << endl;
+        outFile << "M1 Vout VIN 0 0 N_1u l="<< l << "u " "w=" << w <<"u" << endl;
+        outFile << "Rd VDD Vout " << rd << endl;
         outFile << "VDD VDD 0 5" << endl;
         outFile << "vgss VIN N001 SINE(0 0.5 1) AC 1" << endl;
-        outFile << "VGS N001 0 1.5" << endl;
+        outFile << "VGS N001 0 " << vgs << endl;
         outFile << ".model NMOS NMOS" << endl;
         outFile << ".model PMOS PMOS" << endl;
         outFile << ".include cmosedu_models.txt" << endl;

@@ -15,17 +15,27 @@
 #include <iostream>
 #include<chrono>
 #include<random>
-#define it 100
+#include <cmath>
+#define it 5000
 
 using namespace std;
 
 class HillClimbing {
 public:
+    double getTweak(double x, int lb, int ub);
     double getRandom();
-    double cost(double x);
-    double algoritmo();
+    double cost(double rd, double vgs, double w, double l);
+    void algoritmo();
 protected:
     ofstream outFile;
+};
+
+double HillClimbing::getTweak(double x, int lb, int ub){
+    double tweak = x*(1 + 0.1 * getRandom());
+    while(tweak < lb || tweak > ub)
+        tweak = x*(1 + 0.1 * getRandom());
+    
+    return tweak;
 };
 
 double HillClimbing::getRandom(){
@@ -35,43 +45,65 @@ double HillClimbing::getRandom(){
     return distribution(generator);
 };
 
-double HillClimbing::cost(double x){
+double HillClimbing::cost(double rd, double vgs, double w, double l){
     Netlist net;
-    net.createNtl(x);
+    net.createNtl(rd, vgs, w, l);
     net.runNtl();
     double meas = net.readlog();
-    double objective = 5;
-   return (meas-objective)*(meas-objective);
+    return (exp(-meas/10));
 };
 
-double HillClimbing::algoritmo(){
-     int lb = 100;
-     int ub = 20000;
-     int x = 1000;
-     string graphlog = "graphlog.txt";
-     //x = lb + (ub-lb)*gerRandom;
-    //double x = getRandom();
-    double atualCost = cost(x);
+void HillClimbing::algoritmo(){
+    double rdMin = 100; double vgsMin = 1; double wMin = 3; double lMin = 1.5;
+    double rdMax = 100000; double vgsMax = 5; double wMax = 100; double lMax = 10; 
+    string graphlog = "graphlog.txt";
+    Netlist read;
+
+    double rd = (rdMax-rdMin)/2;//rdMin + (rdMax-rdMin)*getRandom();
+    double vgs = (vgsMax-vgsMin)/2;//vgsMin + (vgsMax-vgsMin)*getRandom();
+    double w = (wMax-wMin)/2;//wMin + (wMax-wMin)*getRandom();
+    double l = (lMax-lMin)/2;//lMin + (lMax-lMin)*getRandom();
+    int ic = 0;
+    double atualCost = cost(rd, vgs, w, l);
+
     outFile.open(graphlog);    
+
     if(outFile.is_open()){
         for(int i = 0; i < it; i++){
-            double tweak = x*(1 + 0.1 * getRandom());
-            while(tweak < lb || tweak > ub)
-                tweak = x*(1 + 0.1 * getRandom());
-            double newCost = cost(tweak);
+            double rdtweak = getTweak(rd, rdMin, rdMax);
+            double vgstweak = getTweak(vgs, vgsMin, vgsMax);
+            double wtweak = getTweak(w, wMin, wMax);
+            double ltweak = getTweak(l, lMin, lMax);
+            double newCost = cost(rdtweak, vgstweak, wtweak, ltweak);
+
             if(newCost < atualCost){
                 atualCost = newCost;
-                x = tweak;
+                rd = rdtweak; vgs = vgstweak; w = wtweak; l = ltweak;
             } 
-        cout << "Iteração n: " << i << " " << "valor x modificado: " << x << " " << "Novo custo: " << atualCost << endl; 
-        outFile << i << " " << atualCost << endl;
+
+            cout << "Iteração n: " << i << " " << "Valor rd modificado: " << rd << endl; 
+            cout << "               Valor de vgs modificado " << vgs << endl;
+            cout << "               Valor de w modificado " << w << endl;
+            cout << "               Valor de l modificado " << l << endl;   
+            cout << "               Ganho atual " <<  read.readlog() << endl;
+            cout << "Novo custo: " << atualCost << endl; 
+            cout << "----------------------------------------------" << endl;
+            outFile << i << " " << atualCost << endl;
+            i++;
+            ic++;
         }
     outFile.close();
     }
-    Gnuplot plot;
+    cout << "=========================  VALORES OTIMOS =====================================" << endl;
+    cout << "Iteração n: " << ic << " " << "Valor rd modificado= " << rd << endl;
+    cout << "               Valor de vgs modificado= " << vgs << endl;
+    cout << "               Valor de w modificado= " << w << endl; 
+    cout << "               Valor de l modificado= " << l << endl;  
+    cout << "               Ganho atual " <<  read.readlog() << endl; 
+    cout << "Custo Otimo= "  << atualCost << endl; 
     
+    Gnuplot plot;
 	plot("plot 'graphlog.txt' title 'Otimizacao' with points pointtype 7"); 
     getchar();
-    return x;
 };
 #endif
