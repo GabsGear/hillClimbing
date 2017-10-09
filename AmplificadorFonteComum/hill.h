@@ -28,13 +28,13 @@ public:
     void algoritmo();
 protected:
     ofstream outFile;
+    ofstream outFile2;
 };
 
 double HillClimbing::getTweak(double x, int lb, int ub){
     double tweak = x*(1 + 0.1 * getRandom());
     while(tweak < lb || tweak > ub)
         tweak = x*(1 + 0.1 * getRandom());
-    
     return tweak;
 };
 
@@ -57,18 +57,20 @@ void HillClimbing::algoritmo(){
     double rdMin = 100; double vgsMin = 1; double wMin = 3; double lMin = 1.5;
     double rdMax = 100000; double vgsMax = 5; double wMax = 100; double lMax = 10; 
     string graphlog = "graphlog.txt";
+    string gainlog = "gainlog.txt";
     Netlist read;
 
-    double rd = (rdMax-rdMin)/2;//rdMin + (rdMax-rdMin)*getRandom();
-    double vgs = (vgsMax-vgsMin)/2;//vgsMin + (vgsMax-vgsMin)*getRandom();
-    double w = (wMax-wMin)/2;//wMin + (wMax-wMin)*getRandom();
-    double l = (lMax-lMin)/2;//lMin + (lMax-lMin)*getRandom();
+    double rd = rdMax;//(rdMax-rdMin)/2;//rdMin + (rdMax-rdMin)*getRandom();
+    double vgs = vgsMax;//(vgsMax-vgsMin)/2;//vgsMin + (vgsMax-vgsMin)*getRandom();
+    double w = wMax;//(wMax-wMin)/2;//wMin + (wMax-wMin)*getRandom();
+    double l = lMax;//(lMax-lMin)/2;//lMin + (lMax-lMin)*getRandom();
     int ic = 0;
     double atualCost = cost(rd, vgs, w, l);
 
     outFile.open(graphlog);    
+    outFile2.open(gainlog);
 
-    if(outFile.is_open()){
+    if(outFile.is_open() && outFile2.is_open()){
         for(int i = 0; i < it; i++){
             double rdtweak = getTweak(rd, rdMin, rdMax);
             double vgstweak = getTweak(vgs, vgsMin, vgsMax);
@@ -89,9 +91,11 @@ void HillClimbing::algoritmo(){
             cout << "Novo custo: " << atualCost << endl; 
             cout << "----------------------------------------------" << endl;
             outFile << i << " " << atualCost << endl;
+            outFile2 << i << " " << read.readlog() << endl; 
             i++;
             ic++;
         }
+    outFile2.close();
     outFile.close();
     }
     cout << "=========================  VALORES OTIMOS =====================================" << endl;
@@ -103,7 +107,10 @@ void HillClimbing::algoritmo(){
     cout << "Custo Otimo= "  << atualCost << endl; 
     
     Gnuplot plot;
-	plot("plot 'graphlog.txt' title 'Otimizacao' with points pointtype 7"); 
+    plot("plot 'graphlog.txt' title 'Otimizacao' with points pointtype 7"); 
+    Gnuplot plot2;
+    plot2("plot 'gainlog.txt' title 'OtimizacaoGanho' with points pointtype 5");
+
     getchar();
 };
 #endif

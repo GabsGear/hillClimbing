@@ -1,9 +1,9 @@
 * Circuit Name
-M1 Vout VIN 0 0 N_1u l=2.7935u w=21.8509u
-Rd VDD Vout 45073.2
+M1 Vout VIN 0 0 N_1u l=8.98593u w=14.4201u
+Rd VDD Vout 30303.4
 VDD VDD 0 5
 vgss VIN N001 SINE(0 0.5 1) AC 1
-VGS N001 0 1.11424
+VGS N001 0 1.07782
 .model NMOS NMOS
 .model PMOS PMOS
 .include cmosedu_models.txt
